@@ -1,0 +1,63 @@
+/*
+
+This is an example of the pLang language.
+
+   cat examples/example.plang | python3 -m plang.tests.test_parsing
+
+*/
+
+//
+// Literals
+//
+10;
+"prova";
+3.14;
+true;
+false;
+
+//
+// Vars
+//
+var1 = "10";
+
+//
+// Expressions
+//
+var1 < var2;
+var2 > var3;
+
+//
+// Operators
+//
+a + b;
+!a;
+
+//
+// Comparisons
+//
+a == 3;
+
+//
+// Vectors
+//
+array[1];
+array[-1];
+array[pos];
+
+//
+// Functions
+//
+fun();
+fun(1,2,3);
+fun(1,2,3, foo=(bar + 1));
+
+//
+// Matching statement
+//
+match 
+    input( "ciao" );
+         
+match 
+    input( { "field1.subfield" : "ciao" , "field2": 10 } );
+
+
