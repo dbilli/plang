@@ -104,8 +104,18 @@ class LangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by LangParser#propertyOperator.
+    def visitPropertyOperator(self, ctx:LangParser.PropertyOperatorContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by LangParser#propertyName.
     def visitPropertyName(self, ctx:LangParser.PropertyNameContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by LangParser#propertyNameString.
+    def visitPropertyNameString(self, ctx:LangParser.PropertyNameStringContext):
         return self.visitChildren(ctx)
 
 
@@ -259,6 +269,11 @@ class LangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by LangParser#matchBody.
+    def visitMatchBody(self, ctx:LangParser.MatchBodyContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by LangParser#repetitionMatchStatement.
     def visitRepetitionMatchStatement(self, ctx:LangParser.RepetitionMatchStatementContext):
         return self.visitChildren(ctx)
@@ -284,8 +299,13 @@ class LangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by LangParser#matchAction.
-    def visitMatchAction(self, ctx:LangParser.MatchActionContext):
+    # Visit a parse tree produced by LangParser#basicMatch.
+    def visitBasicMatch(self, ctx:LangParser.BasicMatchContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by LangParser#inputMatch.
+    def visitInputMatch(self, ctx:LangParser.InputMatchContext):
         return self.visitChildren(ctx)
 
 
@@ -309,11 +329,6 @@ class LangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by LangParser#choiceElement.
-    def visitChoiceElement(self, ctx:LangParser.ChoiceElementContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by LangParser#repetitionMatch.
     def visitRepetitionMatch(self, ctx:LangParser.RepetitionMatchContext):
         return self.visitChildren(ctx)
@@ -321,21 +336,6 @@ class LangVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by LangParser#optionalMatch.
     def visitOptionalMatch(self, ctx:LangParser.OptionalMatchContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by LangParser#optionalArg.
-    def visitOptionalArg(self, ctx:LangParser.OptionalArgContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by LangParser#basicMatch.
-    def visitBasicMatch(self, ctx:LangParser.BasicMatchContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by LangParser#inputMatch.
-    def visitInputMatch(self, ctx:LangParser.InputMatchContext):
         return self.visitChildren(ctx)
 
 

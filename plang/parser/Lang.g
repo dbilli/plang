@@ -1,46 +1,3 @@
-/*
-
-
-match 
-	<M>
-;
-	
-<M>
-	input( ... ) action ....
-
-
-<M> 
-	{
-		<M> 
-		<M> 
-		<M>
-	} action ....
-
-
-<m> 
-	choice {
-		case <M>
-		case <M>
-		case <M>
-	} action ....
-
-<m>
-	repeat min <max> max <max>  <M>
-
-		
-
-<m>
-		repeat {
-			<m>;
-			<m>;
-		}
-
-
-
-
-*/
-
-
 
 /*--------------------------------------------------------------------*/
 /*--------------------------------------------------------------------*/
@@ -53,11 +10,11 @@ match
 grammar Lang;
 
 program: 
-    sourceElements? EOF
+      sourceElements? EOF
     ;
 
 sourceElement: 
-    statement
+      statement
     ;
 
 statement: 
@@ -75,26 +32,26 @@ statement:
 // { <stm> ... }
 //
 block: 
-    OpenBrace stmts=statementList? CloseBrace
+      OpenBrace stmts=statementList? CloseBrace
     ;
 
 statementList: 
-    statement+
+      statement+
     ;
 
 emptyStatement: 
-    SemiColon
+      SemiColon
     ;
 
 expressionStatement: 
-    s_expr=expressionSequence s_eos=eos
+      s_expr=expressionSequence s_eos=eos
     ;
 
 // 
 // if ( <e1> ) <stm1> [ else <stm2> ]
 //
 ifStatement: 
-    If OpenParen e1=expressionSequence CloseParen s1=statement (Else s2=statement)?
+      If OpenParen e1=expressionSequence CloseParen s1=statement (Else s2=statement)?
     ;
 
 //
@@ -103,21 +60,20 @@ ifStatement:
 // while ( <expr> ) <stm> 
 //
 iterationStatement: 
-    Do statement While OpenParen expressionSequence CloseParen eos             # DoStatement
-    | 
-    While OpenParen expressionSequence CloseParen statement                    # WhileStatement
+      Do statement While OpenParen expressionSequence CloseParen eos             # DoStatement
+    | While OpenParen expressionSequence CloseParen statement                    # WhileStatement
     ;
 
 continueStatement: 
-    Continue eos
+      Continue eos
     ;
 
 breakStatement: 
-    Break eos
+      Break eos
     ;
 
 sourceElements: 
-    sourceElement+
+      sourceElement+
     ;
 
 //----------------------------------------------------------------------
@@ -128,15 +84,15 @@ sourceElements:
 // [ ... ]
 //
 arrayLiteral: 
-    OpenBracket elements=arrayElementsList? CloseBracket
+      OpenBracket elements=arrayElementsList? CloseBracket
     ;
 
 arrayElementsList: 
-    e1=arrayElement ( Comma e2=arrayElement )* 
+      e1=arrayElement ( Comma e2=arrayElement )* 
     ;
 
 arrayElement: 
-    singleExpression
+      singleExpression
     ;
 
 //----------------------------------------------------------------------
@@ -149,15 +105,26 @@ arrayElement:
 //  { "foo.prova" : <expr> , ... }
 //
 objectLiteral: 
-    OpenBrace ol_list=objectLiteralList? CloseBrace
+      OpenBrace ol_list=objectLiteralList? CloseBrace
     ;
 
 objectLiteralList:
-    propertyAssignment ( Comma propertyAssignment )* 
+      propertyAssignment ( Comma propertyAssignment )* 
     ;
 
 propertyAssignment: 
-    propertyName ctype=(':'|'='|'!='|'<'|'>'|'<='|'>='|'has') singleExpression          # PropertyExpressionAssignment
+      propertyName ctype=propertyOperator singleExpression              # PropertyExpressionAssignment
+    ;
+
+propertyOperator:
+      ':'
+    | '='
+    | '!='
+    | '<'
+    | '>'
+    | '<='
+    | '>='
+    | 'has'
     ;
 
 propertyName: 
@@ -165,8 +132,9 @@ propertyName:
     identifierName
       
     // { "foo": ... }
-    | StringLiteral
-
+    | propertyNameString
+    ;
+propertyNameString: StringLiteral
     ;
 
 //----------------------------------------------------------------------
@@ -195,7 +163,7 @@ argument:
 //----------------------------------------------------------------------
 
 expressionSequence: 
-    singleExpression ( Comma singleExpression )*
+      singleExpression ( Comma singleExpression )*
     ;
 
 singleExpression: 
@@ -204,25 +172,33 @@ singleExpression:
       singleExpression OpenBracket expressionSequence CloseBracket              # MemberIndexExpression
 
       // <e1> . <e2>
-    | singleExpression Dot identifierName                                       # MemberDotExpression
+    | singleExpression Dot identifierName                                        # MemberDotExpression
 
       // <e1> (...)
-    | singleExpression arguments                                                # ArgumentsExpression
+    | singleExpression arguments                                                 # ArgumentsExpression
 
-    | '+' singleExpression                                                      # UnaryPlusExpression
-    | '-' singleExpression                                                      # UnaryMinusExpression
-    | '~' singleExpression                                                      # BitNotExpression
-    | '!' singleExpression                                                      # NotExpression
+    | Plus   singleExpression                                                    # UnaryPlusExpression
+    | Minus  singleExpression                                                    # UnaryMinusExpression
+    | BitNot singleExpression                                                    # BitNotExpression
+    | Not    singleExpression                                                    # NotExpression
 
+    //
+    // <e1> ** <e2>   
+    //
+    | <assoc=right> singleExpression Power singleExpression                      # PowerExpression
 
-    | <assoc=right> singleExpression '**' singleExpression                      # PowerExpression
-    | singleExpression etype=('*' | '/' | '%') singleExpression                 # MultiplicativeExpression
+    //
+    // <e1> * <e2>
+    // <e1> / <e2>
+    // <e1> % <e2>    
+    //
+    | singleExpression etype=(Multiply | Divide | Modulus) singleExpression      # MultiplicativeExpression
     
     //
     // <e1> + <e2>
     // <e1> - <e2>
     //
-    | singleExpression etype=(Plus | Minus) singleExpression                    # AdditiveExpression
+    | singleExpression etype=(Plus | Minus) singleExpression                     # AdditiveExpression
 
     //
     // <e1> << <e2>
@@ -233,7 +209,7 @@ singleExpression:
     //
     // Comparison
     //
-    | singleExpression etype=('<' | '>' | '<=' | '>=') singleExpression         # RelationalExpression
+    | singleExpression etype=(LessThan | MoreThan | LessThanEquals | GreaterThanEquals) singleExpression    # RelationalExpression
     
     //
     // <e1> == <e2>
@@ -276,16 +252,19 @@ singleExpression:
     | OpenParen e_sequence=expressionSequence CloseParen                        # ParenthesizedExpression
     ;
 
-
 /*--------------------------------------------------------------------*/
 /* MATCH                                                              */
 /*--------------------------------------------------------------------*/
 
 //
-//  match <match> [ 'action' <action> ]
+//  match ..... 
 //
 matchStatement: 
-    Match matchExpr matchAction?
+      Match matchBody
+    ;
+
+matchBody:
+      matchExpr ( Action OpenBrace statement CloseBrace ) ?
     ;
 
 matchExpr:
@@ -296,12 +275,16 @@ matchExpr:
    | basicMatch                   # basicMatchStatement     
    ;
 
-matchAction:
-     Action statement
-   ;
+basicMatch:
+    inputMatch
+    ;
 
-
-
+//
+// input ( arg )
+//
+inputMatch: 
+      Input OpenParen singleExpression CloseParen
+    ;
 
 // SEQUENCE
 // 
@@ -312,12 +295,11 @@ matchAction:
 //     } 
 //
 sequenceMatch: 
-    //OpenParen sequenceList CloseParen
-    OpenBrace sequenceList CloseBrace
+      OpenBrace sequenceList CloseBrace
     ;
     
 sequenceList: 
-    matchExpr ( Comma matchExpr )* 
+      matchBody ( Comma matchBody )* 
     ;
 
 
@@ -330,15 +312,11 @@ sequenceList:
 //     }
 //
 choiceMatch: 
-    Choice OpenBrace choiceList CloseBrace
+      Choice OpenBrace choiceList CloseBrace
     ;
 
 choiceList: 
-    ( Case choiceElement ) +
-    ;
-
-choiceElement: 
-    matchExpr 
+      ( Case matchBody ) +
     ;
 
 //
@@ -346,58 +324,21 @@ choiceElement:
 // repetition + ( M )
 // 
 repetitionMatch: 
-    Repetition rtype=('*'|'+') matchExpr
+      Repetition rtype=('*'|'+') OpenBrace matchBody CloseBrace
     ;
 
 
 // OPTIONAL
 //
-//     ? ( M )
+// optional <M>
 //
 optionalMatch: 
-    QuestionMark optionalArg 
+      Optional OpenBrace matchBody CloseBrace                  
     ;
-
-optionalArg:
-      sequenceMatch
-    | choiceMatch
-    | basicMatch
-    ;
-
-basicMatch:
-      inputMatch
-    ;
-
-//
-// input ( arg, ... )
-//
-inputMatch: 
-//    'input' inputOptions? arguments
-    Input arguments
-    ;
-
-// inputMatch: 
-//    'input' inputOptions? arguments
-//    Input arguments
-//    ;
-//inputOptions
-//    : OpenBrace ol_list=namedArgumentsList CloseBrace
-//    ;
-//
-//namedArgumentsList:
-//    namedArgument ( ',' namedArgument )* 
-//    ;
-//
-//namedArgument: 
-//    identifierName '=' singleExpression          
-//    ;
-
-
 
 /*--------------------------------------------------------------------*/
 /* Literals                                                           */
 /*--------------------------------------------------------------------*/
-
 
 literal: 
       null=NullLiteral
@@ -414,8 +355,8 @@ numericLiteral:
     | BinaryIntegerLiteral
     ;
 
-bigintLiteral
-    : BigDecimalIntegerLiteral
+bigintLiteral: 
+      BigDecimalIntegerLiteral
     | BigHexIntegerLiteral
     | BigOctalIntegerLiteral
     | BigBinaryIntegerLiteral
@@ -433,7 +374,7 @@ reservedWord:
     ;
 
 keyword: 
-    | If
+      If
     | Else
 
     | Do
@@ -453,7 +394,6 @@ eos:
       SemiColon
     | EOF
     ;
-
 
 /*--------------------------------------------------------------------*/
 /*--------------------------------------------------------------------*/
@@ -482,9 +422,6 @@ Assign:                         '=';
 QuestionMark:                   '?';
 Colon:                          ':';
 Dot:                            '.';
-
-
-ChoiceSep:                       '|||' ;
 
 Plus:                           '+';
 Minus:                          '-';
@@ -560,25 +497,21 @@ While:                          'while';
 //
 //
 Match:                          'match';
-
 Repetition:                     'repetition';
-
 Choice:                         'choice';
 Case:                           'case';
-
+Optional:                       'optional';
 Input:                          'input';
-
 Action:                         'action';
 
-
-
-
-
-/// Identifier Names and Identifiers
-
+//
+// Identifier Names and Identifiers
+//
 Identifier:                     IdentifierStart IdentifierPart*;
 
-/// String Literals
+//
+// String Literals
+//
 StringLiteral:                 
      (
         '"'  DoubleStringCharacter* '"'
@@ -586,19 +519,10 @@ StringLiteral:
      ) 
     ;
 
-// TODO: `${`tmp`}`
-TemplateStringLiteral:          '`' ('\\`' | ~'`')* '`';
 
 WhiteSpaces:                    [\t\u000B\u000C\u0020\u00A0]+ -> channel(HIDDEN);
 
 LineTerminator:                 [\r\n\u2028\u2029] -> channel(HIDDEN);
-
-/// Comments
-
-
-//HtmlComment:                    '<!--' .*? '-->' -> channel(HIDDEN);
-//CDataComment:                   '<![CDATA[' .*? ']]>' -> channel(HIDDEN);
-//UnexpectedCharacter:            . -> channel(ERROR);
 
 UnexpectedCharacter:            . -> skip;
 
@@ -657,21 +581,16 @@ fragment EscapeCharacter
     ;
 
 fragment LineContinuation
-    : '\\' [\r\n\u2028\u2029]
-    ;
+    : '\\' [\r\n\u2028\u2029] ;
 
-fragment HexDigit
-    : [_0-9a-fA-F]
-    ;
+fragment HexDigit: [_0-9a-fA-F] ;
 
-fragment DecimalIntegerLiteral
-    : '0'
+fragment DecimalIntegerLiteral: 
+      '0'
     | [1-9] [0-9_]*
     ;
 
-fragment ExponentPart
-    : [eE] [+-]? [0-9_]+
-    ;
+fragment ExponentPart: [eE] [+-]? [0-9_]+ ;
 
 fragment IdentifierPart
     : IdentifierStart

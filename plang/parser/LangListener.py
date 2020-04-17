@@ -179,12 +179,30 @@ class LangListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LangParser#propertyOperator.
+    def enterPropertyOperator(self, ctx:LangParser.PropertyOperatorContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#propertyOperator.
+    def exitPropertyOperator(self, ctx:LangParser.PropertyOperatorContext):
+        pass
+
+
     # Enter a parse tree produced by LangParser#propertyName.
     def enterPropertyName(self, ctx:LangParser.PropertyNameContext):
         pass
 
     # Exit a parse tree produced by LangParser#propertyName.
     def exitPropertyName(self, ctx:LangParser.PropertyNameContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#propertyNameString.
+    def enterPropertyNameString(self, ctx:LangParser.PropertyNameStringContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#propertyNameString.
+    def exitPropertyNameString(self, ctx:LangParser.PropertyNameStringContext):
         pass
 
 
@@ -458,6 +476,15 @@ class LangListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LangParser#matchBody.
+    def enterMatchBody(self, ctx:LangParser.MatchBodyContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#matchBody.
+    def exitMatchBody(self, ctx:LangParser.MatchBodyContext):
+        pass
+
+
     # Enter a parse tree produced by LangParser#repetitionMatchStatement.
     def enterRepetitionMatchStatement(self, ctx:LangParser.RepetitionMatchStatementContext):
         pass
@@ -503,12 +530,21 @@ class LangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LangParser#matchAction.
-    def enterMatchAction(self, ctx:LangParser.MatchActionContext):
+    # Enter a parse tree produced by LangParser#basicMatch.
+    def enterBasicMatch(self, ctx:LangParser.BasicMatchContext):
         pass
 
-    # Exit a parse tree produced by LangParser#matchAction.
-    def exitMatchAction(self, ctx:LangParser.MatchActionContext):
+    # Exit a parse tree produced by LangParser#basicMatch.
+    def exitBasicMatch(self, ctx:LangParser.BasicMatchContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#inputMatch.
+    def enterInputMatch(self, ctx:LangParser.InputMatchContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#inputMatch.
+    def exitInputMatch(self, ctx:LangParser.InputMatchContext):
         pass
 
 
@@ -548,15 +584,6 @@ class LangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LangParser#choiceElement.
-    def enterChoiceElement(self, ctx:LangParser.ChoiceElementContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#choiceElement.
-    def exitChoiceElement(self, ctx:LangParser.ChoiceElementContext):
-        pass
-
-
     # Enter a parse tree produced by LangParser#repetitionMatch.
     def enterRepetitionMatch(self, ctx:LangParser.RepetitionMatchContext):
         pass
@@ -572,33 +599,6 @@ class LangListener(ParseTreeListener):
 
     # Exit a parse tree produced by LangParser#optionalMatch.
     def exitOptionalMatch(self, ctx:LangParser.OptionalMatchContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#optionalArg.
-    def enterOptionalArg(self, ctx:LangParser.OptionalArgContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#optionalArg.
-    def exitOptionalArg(self, ctx:LangParser.OptionalArgContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#basicMatch.
-    def enterBasicMatch(self, ctx:LangParser.BasicMatchContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#basicMatch.
-    def exitBasicMatch(self, ctx:LangParser.BasicMatchContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#inputMatch.
-    def enterInputMatch(self, ctx:LangParser.InputMatchContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#inputMatch.
-    def exitInputMatch(self, ctx:LangParser.InputMatchContext):
         pass
 
 
