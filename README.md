@@ -1,4 +1,4 @@
-# plang: A Patterns-Recognition language for logs analysis
+# plang: A Patterns-Recognition language (for logs analysis)
 
 Plang is a simple language for log analysis with pattern-matching statements inspired by *Regular Expressions*.
 
@@ -16,13 +16,14 @@ This simple plang program matches a sequence of login/logout actions.
     count = 0;
     
     while (1) {
-        match {
-            input( {"type": "login" , "username": "foo" } ),
-            input( {"type": "logout", "username": "foo" } ),
-        } 
-        action {
-            count = count + 1;
-        }
+        match 
+            (
+                {"type": "login" , "username": "foo" } 
+                {"type": "logout", "username": "foo" }          
+            ) 
+            action {
+                count = count + 1;
+            }
 
 ## The Language
 
@@ -111,26 +112,27 @@ A matching statement can be:
 
 Match input JSON-data:
 
-    input ( <match expression> ) 
-    
-    input ( <match expression> ) action { <statement> } 
+    match 
+          <match statement>
+    ;
 
-The *match expression* must be a valid expression.
+
+The *match statement* must be a valid expression.
 
 The *statement* is executed when the current input matches the *match expression*.
 
 Examples:
 
     match 
-        input ( 1 ) action { print("Received integer value 1 from input"); }
+        ( 1 ) action { print("Received integer value 1 from input"); }
     ;
     
     match 
-        input ( [1,2,3] ) action { print("Received an array from input"); }
+        ( [1,2,3] ) action { print("Received an array from input"); }
     ;
     
     match 
-        input ( { "key1":"value1", "key2": "value2" } )
+        ( { "key1":"value1", "key2": "value2" } )
     ;
     
 #### sequence match       
@@ -144,11 +146,11 @@ A sequence of *match statemens* between braces:
 Examples
 
     match
-         {
-             input(1),
-             input(2) action { print("almost done"); },
-             input(3)
-         }
+         (
+             1
+             2 action { print("almost done"); }
+             3
+         )
          action { 
              print("Matched three integers sequence"); 
          }
@@ -248,6 +250,35 @@ With pLang you can write a OPEN/CLOSE connection pattern matching program:
           i = i + 1;
        }
     }
+
+## Python API
+
+### Basic parsing
+
+    import sys
+    from plang.parsing import parse_string
+
+    parsed_tree = parse_string(sys.argv[1])
+    
+    print(parsed_tree.format())
+
+
+### Customized parsing and syntax trees
+
+You can customize the parsed tree by implementing your custom version of the _BaseExprFactory_ :
+
+    from plang.parsing.nodes import *
+    from plang.parsing.nodes import BaseExprFactory
+    
+    class CustomFactory(BaseExprFactory):
+        ... override ...
+
+    parsed_tree = parse_string(s, tree_factory=CustomFactory() )
+    
+    print(parsed_tree.format())
+    
+    return compiled
+
 
 ## Authors
 

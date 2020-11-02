@@ -8,8 +8,8 @@ from antlr4.error.ErrorListener import ErrorListener
 from antlr4.tree.Trees import Trees
 from antlr4.Utils import escapeWhitespace
 
-from . import LangLexer 
-from . import LangParser 
+from plang.parser import LangLexer 
+from plang.parser import LangParser 
 
 #----------------------------------------------------------------------#
 #                                                                      #
@@ -87,4 +87,19 @@ def printAST(s):
     
     print( _MyTrees.toStringTree(parsed_tree, None, parser) )
 
+#----------------------------------------------------------------------#
+#                                                                      #
+#----------------------------------------------------------------------#
 
+if __name__ == "__main__":
+    
+    import sys
+
+    source_code = sys.stdin.read().strip()
+    
+    print("----------SOURCE PROGRAM--------")    
+    print(source_code)
+    print("---------------AST--------------")
+
+    printAST(source_code)
+    

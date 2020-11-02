@@ -179,6 +179,15 @@ class LangListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LangParser#PropertyExpressionBetween.
+    def enterPropertyExpressionBetween(self, ctx:LangParser.PropertyExpressionBetweenContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#PropertyExpressionBetween.
+    def exitPropertyExpressionBetween(self, ctx:LangParser.PropertyExpressionBetweenContext):
+        pass
+
+
     # Enter a parse tree produced by LangParser#propertyOperator.
     def enterPropertyOperator(self, ctx:LangParser.PropertyOperatorContext):
         pass
@@ -242,6 +251,24 @@ class LangListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LangParser#AdditiveExpression.
+    def enterAdditiveExpression(self, ctx:LangParser.AdditiveExpressionContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#AdditiveExpression.
+    def exitAdditiveExpression(self, ctx:LangParser.AdditiveExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#RelationalExpression.
+    def enterRelationalExpression(self, ctx:LangParser.RelationalExpressionContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#RelationalExpression.
+    def exitRelationalExpression(self, ctx:LangParser.RelationalExpressionContext):
+        pass
+
+
     # Enter a parse tree produced by LangParser#TernaryExpression.
     def enterTernaryExpression(self, ctx:LangParser.TernaryExpressionContext):
         pass
@@ -269,12 +296,12 @@ class LangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LangParser#ObjectLiteralExpression.
-    def enterObjectLiteralExpression(self, ctx:LangParser.ObjectLiteralExpressionContext):
+    # Enter a parse tree produced by LangParser#BitNotExpression.
+    def enterBitNotExpression(self, ctx:LangParser.BitNotExpressionContext):
         pass
 
-    # Exit a parse tree produced by LangParser#ObjectLiteralExpression.
-    def exitObjectLiteralExpression(self, ctx:LangParser.ObjectLiteralExpressionContext):
+    # Exit a parse tree produced by LangParser#BitNotExpression.
+    def exitBitNotExpression(self, ctx:LangParser.BitNotExpressionContext):
         pass
 
 
@@ -287,12 +314,30 @@ class LangListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LangParser#MemberDotExpression.
+    def enterMemberDotExpression(self, ctx:LangParser.MemberDotExpressionContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#MemberDotExpression.
+    def exitMemberDotExpression(self, ctx:LangParser.MemberDotExpressionContext):
+        pass
+
+
     # Enter a parse tree produced by LangParser#NotExpression.
     def enterNotExpression(self, ctx:LangParser.NotExpressionContext):
         pass
 
     # Exit a parse tree produced by LangParser#NotExpression.
     def exitNotExpression(self, ctx:LangParser.NotExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#MemberIndexExpression.
+    def enterMemberIndexExpression(self, ctx:LangParser.MemberIndexExpressionContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#MemberIndexExpression.
+    def exitMemberIndexExpression(self, ctx:LangParser.MemberIndexExpressionContext):
         pass
 
 
@@ -314,12 +359,39 @@ class LangListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LangParser#BitAndExpression.
+    def enterBitAndExpression(self, ctx:LangParser.BitAndExpressionContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#BitAndExpression.
+    def exitBitAndExpression(self, ctx:LangParser.BitAndExpressionContext):
+        pass
+
+
     # Enter a parse tree produced by LangParser#AssignmentExpression.
     def enterAssignmentExpression(self, ctx:LangParser.AssignmentExpressionContext):
         pass
 
     # Exit a parse tree produced by LangParser#AssignmentExpression.
     def exitAssignmentExpression(self, ctx:LangParser.AssignmentExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#singleAtomicExpression.
+    def enterSingleAtomicExpression(self, ctx:LangParser.SingleAtomicExpressionContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#singleAtomicExpression.
+    def exitSingleAtomicExpression(self, ctx:LangParser.SingleAtomicExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#BitOrExpression.
+    def enterBitOrExpression(self, ctx:LangParser.BitOrExpressionContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#BitOrExpression.
+    def exitBitOrExpression(self, ctx:LangParser.BitOrExpressionContext):
         pass
 
 
@@ -368,39 +440,12 @@ class LangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LangParser#ParenthesizedExpression.
-    def enterParenthesizedExpression(self, ctx:LangParser.ParenthesizedExpressionContext):
+    # Enter a parse tree produced by LangParser#IdentifierExpression.
+    def enterIdentifierExpression(self, ctx:LangParser.IdentifierExpressionContext):
         pass
 
-    # Exit a parse tree produced by LangParser#ParenthesizedExpression.
-    def exitParenthesizedExpression(self, ctx:LangParser.ParenthesizedExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#AdditiveExpression.
-    def enterAdditiveExpression(self, ctx:LangParser.AdditiveExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#AdditiveExpression.
-    def exitAdditiveExpression(self, ctx:LangParser.AdditiveExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#RelationalExpression.
-    def enterRelationalExpression(self, ctx:LangParser.RelationalExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#RelationalExpression.
-    def exitRelationalExpression(self, ctx:LangParser.RelationalExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#BitNotExpression.
-    def enterBitNotExpression(self, ctx:LangParser.BitNotExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#BitNotExpression.
-    def exitBitNotExpression(self, ctx:LangParser.BitNotExpressionContext):
+    # Exit a parse tree produced by LangParser#IdentifierExpression.
+    def exitIdentifierExpression(self, ctx:LangParser.IdentifierExpressionContext):
         pass
 
 
@@ -422,48 +467,12 @@ class LangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LangParser#MemberDotExpression.
-    def enterMemberDotExpression(self, ctx:LangParser.MemberDotExpressionContext):
+    # Enter a parse tree produced by LangParser#ObjectLiteralExpression.
+    def enterObjectLiteralExpression(self, ctx:LangParser.ObjectLiteralExpressionContext):
         pass
 
-    # Exit a parse tree produced by LangParser#MemberDotExpression.
-    def exitMemberDotExpression(self, ctx:LangParser.MemberDotExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#MemberIndexExpression.
-    def enterMemberIndexExpression(self, ctx:LangParser.MemberIndexExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#MemberIndexExpression.
-    def exitMemberIndexExpression(self, ctx:LangParser.MemberIndexExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#IdentifierExpression.
-    def enterIdentifierExpression(self, ctx:LangParser.IdentifierExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#IdentifierExpression.
-    def exitIdentifierExpression(self, ctx:LangParser.IdentifierExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#BitAndExpression.
-    def enterBitAndExpression(self, ctx:LangParser.BitAndExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#BitAndExpression.
-    def exitBitAndExpression(self, ctx:LangParser.BitAndExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#BitOrExpression.
-    def enterBitOrExpression(self, ctx:LangParser.BitOrExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#BitOrExpression.
-    def exitBitOrExpression(self, ctx:LangParser.BitOrExpressionContext):
+    # Exit a parse tree produced by LangParser#ObjectLiteralExpression.
+    def exitObjectLiteralExpression(self, ctx:LangParser.ObjectLiteralExpressionContext):
         pass
 
 
@@ -476,75 +485,12 @@ class LangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LangParser#matchBody.
-    def enterMatchBody(self, ctx:LangParser.MatchBodyContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#matchBody.
-    def exitMatchBody(self, ctx:LangParser.MatchBodyContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#repetitionMatchStatement.
-    def enterRepetitionMatchStatement(self, ctx:LangParser.RepetitionMatchStatementContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#repetitionMatchStatement.
-    def exitRepetitionMatchStatement(self, ctx:LangParser.RepetitionMatchStatementContext):
-        pass
-
-
     # Enter a parse tree produced by LangParser#sequenceMatchStatement.
     def enterSequenceMatchStatement(self, ctx:LangParser.SequenceMatchStatementContext):
         pass
 
     # Exit a parse tree produced by LangParser#sequenceMatchStatement.
     def exitSequenceMatchStatement(self, ctx:LangParser.SequenceMatchStatementContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#choiceMatchStatement.
-    def enterChoiceMatchStatement(self, ctx:LangParser.ChoiceMatchStatementContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#choiceMatchStatement.
-    def exitChoiceMatchStatement(self, ctx:LangParser.ChoiceMatchStatementContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#optionalMatchStatement.
-    def enterOptionalMatchStatement(self, ctx:LangParser.OptionalMatchStatementContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#optionalMatchStatement.
-    def exitOptionalMatchStatement(self, ctx:LangParser.OptionalMatchStatementContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#basicMatchStatement.
-    def enterBasicMatchStatement(self, ctx:LangParser.BasicMatchStatementContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#basicMatchStatement.
-    def exitBasicMatchStatement(self, ctx:LangParser.BasicMatchStatementContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#basicMatch.
-    def enterBasicMatch(self, ctx:LangParser.BasicMatchContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#basicMatch.
-    def exitBasicMatch(self, ctx:LangParser.BasicMatchContext):
-        pass
-
-
-    # Enter a parse tree produced by LangParser#inputMatch.
-    def enterInputMatch(self, ctx:LangParser.InputMatchContext):
-        pass
-
-    # Exit a parse tree produced by LangParser#inputMatch.
-    def exitInputMatch(self, ctx:LangParser.InputMatchContext):
         pass
 
 
@@ -566,6 +512,15 @@ class LangListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LangParser#sequenceElement.
+    def enterSequenceElement(self, ctx:LangParser.SequenceElementContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#sequenceElement.
+    def exitSequenceElement(self, ctx:LangParser.SequenceElementContext):
+        pass
+
+
     # Enter a parse tree produced by LangParser#choiceMatch.
     def enterChoiceMatch(self, ctx:LangParser.ChoiceMatchContext):
         pass
@@ -584,12 +539,66 @@ class LangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LangParser#repetitionMatch.
-    def enterRepetitionMatch(self, ctx:LangParser.RepetitionMatchContext):
+    # Enter a parse tree produced by LangParser#atomMatch.
+    def enterAtomMatch(self, ctx:LangParser.AtomMatchContext):
         pass
 
-    # Exit a parse tree produced by LangParser#repetitionMatch.
-    def exitRepetitionMatch(self, ctx:LangParser.RepetitionMatchContext):
+    # Exit a parse tree produced by LangParser#atomMatch.
+    def exitAtomMatch(self, ctx:LangParser.AtomMatchContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#matchBody.
+    def enterMatchBody(self, ctx:LangParser.MatchBodyContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#matchBody.
+    def exitMatchBody(self, ctx:LangParser.MatchBodyContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#optionalMatchStatement.
+    def enterOptionalMatchStatement(self, ctx:LangParser.OptionalMatchStatementContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#optionalMatchStatement.
+    def exitOptionalMatchStatement(self, ctx:LangParser.OptionalMatchStatementContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#repetitionMatchStatement.
+    def enterRepetitionMatchStatement(self, ctx:LangParser.RepetitionMatchStatementContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#repetitionMatchStatement.
+    def exitRepetitionMatchStatement(self, ctx:LangParser.RepetitionMatchStatementContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#bracedMatchExpr.
+    def enterBracedMatchExpr(self, ctx:LangParser.BracedMatchExprContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#bracedMatchExpr.
+    def exitBracedMatchExpr(self, ctx:LangParser.BracedMatchExprContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#basicMatchStatement.
+    def enterBasicMatchStatement(self, ctx:LangParser.BasicMatchStatementContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#basicMatchStatement.
+    def exitBasicMatchStatement(self, ctx:LangParser.BasicMatchStatementContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#basicMatch.
+    def enterBasicMatch(self, ctx:LangParser.BasicMatchContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#basicMatch.
+    def exitBasicMatch(self, ctx:LangParser.BasicMatchContext):
         pass
 
 
@@ -599,6 +608,33 @@ class LangListener(ParseTreeListener):
 
     # Exit a parse tree produced by LangParser#optionalMatch.
     def exitOptionalMatch(self, ctx:LangParser.OptionalMatchContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#inputMatch.
+    def enterInputMatch(self, ctx:LangParser.InputMatchContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#inputMatch.
+    def exitInputMatch(self, ctx:LangParser.InputMatchContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#optionsList.
+    def enterOptionsList(self, ctx:LangParser.OptionsListContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#optionsList.
+    def exitOptionsList(self, ctx:LangParser.OptionsListContext):
+        pass
+
+
+    # Enter a parse tree produced by LangParser#repetitionMatch.
+    def enterRepetitionMatch(self, ctx:LangParser.RepetitionMatchContext):
+        pass
+
+    # Exit a parse tree produced by LangParser#repetitionMatch.
+    def exitRepetitionMatch(self, ctx:LangParser.RepetitionMatchContext):
         pass
 
 

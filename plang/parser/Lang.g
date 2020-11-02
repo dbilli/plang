@@ -25,7 +25,7 @@ statement:
     | s_iter=iterationStatement
     | s_continue=continueStatement                                      
     | s_break=breakStatement                                            
-    | s_match=matchStatement
+    //| s_match=matchStatement
     ;
 
 // 
@@ -45,6 +45,9 @@ emptyStatement:
 
 expressionStatement: 
       s_expr=expressionSequence s_eos=eos
+    
+    | s_match=matchStatement s_eos=eos
+    
     ;
 
 // 
@@ -113,7 +116,8 @@ objectLiteralList:
     ;
 
 propertyAssignment: 
-      propertyName ctype=propertyOperator singleExpression              # PropertyExpressionAssignment
+      propertyName ctype=propertyOperator singleExpression                    # PropertyExpressionAssignment
+    | propertyName 'between' '(' singleExpression Comma singleExpression ')'  # PropertyExpressionBetween
     ;
 
 propertyOperator:
@@ -134,6 +138,7 @@ propertyName:
     // { "foo": ... }
     | propertyNameString
     ;
+
 propertyNameString: StringLiteral
     ;
 
@@ -240,8 +245,22 @@ singleExpression:
     //
     | <assoc=right> singleExpression Assign singleExpression                    # AssignmentExpression
 
-    | e_Identifier=Identifier                                                   # IdentifierExpression
+    //
+    //
+    //
+    | atomicExpression                                                          # singleAtomicExpression
+    ;
+    
 
+atomicExpression: 
+
+    // 
+    //  <var>
+    //
+      e_Identifier=Identifier                                                   # IdentifierExpression
+    //
+    // Literals
+    //
     | e_literal=literal                                                         # LiteralExpression
     | e_arrayLiteral=arrayLiteral                                               # ArrayLiteralExpression
     | e_objectLiteral=objectLiteral                                             # ObjectLiteralExpression
@@ -249,91 +268,109 @@ singleExpression:
     //                                                                          
     // ( <exp1> ... )                                                           
     //                                                                          
-    | OpenParen e_sequence=expressionSequence CloseParen                        # ParenthesizedExpression
+    //| OpenParen e_sequence=expressionSequence CloseParen                        # ParenthesizedExpression
     ;
+
+
+
 
 /*--------------------------------------------------------------------*/
 /* MATCH                                                              */
 /*--------------------------------------------------------------------*/
 
 //
-//  match ..... 
+//  match ... 
 //
 matchStatement: 
-      Match matchBody
+      Match matchStatementBody
+    ;
+
+
+matchStatementBody:
+      sequenceMatch                  # sequenceMatchStatement 
+    ;
+
+//
+// Sequence
+//
+sequenceMatch: 
+      sequenceList
+    ;
+    
+sequenceList: 
+      //sequenceElement ( Comma sequenceElement )* 
+      sequenceElement + 
+    ;
+
+sequenceElement:
+    choiceMatch
+    ;
+
+//
+// Choice
+//
+choiceMatch: 
+      choiceList
+    ;
+
+choiceList: 
+      atomMatch ( MatchOr atomMatch ) *
+    ;
+
+atomMatch:
+    matchBody
     ;
 
 matchBody:
-      matchExpr ( Action OpenBrace statement CloseBrace ) ?
+      ( Prematch OpenBrace prematch_stm=statementList CloseBrace ) ?
+      match_expr=matchExpr 
+      ( Onmatch  OpenBrace onmatch_stm=statementList CloseBrace ) ?
     ;
 
 matchExpr:
-     repetitionMatch              # repetitionMatchStatement
-   | sequenceMatch                # sequenceMatchStatement  
-   | choiceMatch                  # choiceMatchStatement    
-   | optionalMatch                # optionalMatchStatement  
-   | basicMatch                   # basicMatchStatement     
+       optionalMatch                             # optionalMatchStatement  
+     | repetitionMatch                           # repetitionMatchStatement     
+     | OpenParen matchStatementBody CloseParen   # bracedMatchExpr
+     | basicMatch                                # basicMatchStatement
    ;
 
 basicMatch:
     inputMatch
     ;
 
+//----------------------------------------------------------------------
 //
-// input ( arg )
-//
-inputMatch: 
-      Input OpenParen singleExpression CloseParen
-    ;
-
-// SEQUENCE
-// 
-//     { 
-//        <M>
-//        , 
-//        <M>
-//     } 
-//
-sequenceMatch: 
-      OpenBrace sequenceList CloseBrace
-    ;
-    
-sequenceList: 
-      matchBody ( Comma matchBody )* 
-    ;
-
-
-// CHOICE
-//
-//     choice { 
-//         case <M>
-//         case <M>
-//         case ...
-//     }
-//
-choiceMatch: 
-      Choice OpenBrace choiceList CloseBrace
-    ;
-
-choiceList: 
-      ( Case matchBody ) +
-    ;
-
-//
-// repetition * ( M )
-// repetition + ( M )
-// 
-repetitionMatch: 
-      Repetition rtype=('*'|'+') OpenBrace matchBody CloseBrace
-    ;
-
-
 // OPTIONAL
 //
 // optional <M>
 //
 optionalMatch: 
-      Optional OpenBrace matchBody CloseBrace                  
+      Optional OpenParen matchStatementBody CloseParen
+    | Optional matchExpr
+                   
+    ;
+
+//----------------------------------------------------------------------
+//
+// INPUT  -> EXPRESSION  
+//
+inputMatch: 
+      singleExpression    options=optionsList?
+      //atomicExpression    options=optionsList?
+    ;
+
+optionsList:
+      (identifierName singleExpression) +
+    ;
+
+//----------------------------------------------------------------------
+//
+// repetition + <single match>
+// repetition + ( <statement> )
+// 
+repetitionMatch: 
+      Repetition rtype=('*'|'+') OpenParen matchStatementBody CloseParen
+    | Repetition rtype=('*'|'+') matchExpr
     ;
 
 /*--------------------------------------------------------------------*/
@@ -387,7 +424,8 @@ keyword:
     | Choice
     | Case
     | Input
-    | Action
+    | Prematch
+    | Onmatch
     ;
 
 eos: 
@@ -497,12 +535,16 @@ While:                          'while';
 //
 //
 Match:                          'match';
+End:                            'end';
 Repetition:                     'repetition';
 Choice:                         'choice';
+MatchOr:                        'or';
 Case:                           'case';
 Optional:                       'optional';
 Input:                          'input';
-Action:                         'action';
+
+Prematch:                       'prematch';
+Onmatch:                        'onmatch';
 
 //
 // Identifier Names and Identifiers
